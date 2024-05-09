@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<input type="text" name="name" id="txt"/>
+<input type="button" name="save" value="save" onclick="send()"/>
+
+
+@section Scripts{
+    <script src="/microsoft/signalr/dist/browser/signalr.js"></script>
+    
+    
+    <script>
+
+        con = new signalR.HubConnectionBuilder().withUrl("/testmessage").build();
+
+        con.start();
+
+        function send() { 
+            let message = $("#txt").val();
+
+            con.invoke("sendmessage", message);
+        }
+
+    </script>
+}
+
+

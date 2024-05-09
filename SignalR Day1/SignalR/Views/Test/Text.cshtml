@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Text";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Messages</th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="/microsoft/signalr/dist/browser/signalr.js"></script>
+
+    <script>
+        con = new signalR.HubConnectionBuilder().withUrl("/testmessage").build();
+
+        con.start();
+
+        con.on("recievemessage", function (msg) {
+            $("#tbody").append(`<tr><td>${msg}<td></tr>`);
+        });
+    </script>
+}
